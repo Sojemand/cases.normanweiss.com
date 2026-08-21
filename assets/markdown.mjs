@@ -7,6 +7,12 @@ function safeLink(value) {
   }
 }
 
+export function normalizeDisplayText(value) {
+  return String(value)
+    .replaceAll("â€”", "—")
+    .replaceAll("â€“", "–");
+}
+
 function appendInline(parent, text) {
   const pattern = /(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s<]+)/g;
   let cursor = 0;
@@ -53,7 +59,7 @@ function isTableDivider(line) {
 
 export function renderMarkdownSafely(markdown, target) {
   target.replaceChildren();
-  const rawLines = String(markdown).replace(/\r\n?/g, "\n").split("\n");
+  const rawLines = normalizeDisplayText(markdown).replace(/\r\n?/g, "\n").split("\n");
   let start = 0;
   if (rawLines[0] === "---") {
     const end = rawLines.indexOf("---", 1);
