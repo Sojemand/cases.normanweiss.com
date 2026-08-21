@@ -41,7 +41,7 @@ form.addEventListener("submit", async (event) => {
   } catch {
     input.value = "";
     status.className = "status error";
-    status.textContent = "Access code invalid or report unavailable. / Zugangscode ungültig oder Bericht nicht verfügbar.";
+    status.textContent = "Access code invalid or report unavailable.";
     input.focus();
   } finally {
     button.disabled = false;
