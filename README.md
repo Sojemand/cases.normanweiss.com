@@ -1,4 +1,4 @@
-# Claim Radar Case Portal
+# Lost Fund Recovery Project Case Portal
 
 Static password-only portal for encrypted recipient case reports at `https://cases.normanweiss.com/`.
 
