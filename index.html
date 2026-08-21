@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+    <title>Confidential Case Report</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <main>
+      <section id="unlock" class="unlock" aria-labelledby="portal-title">
+        <div class="mark" aria-hidden="true">NW</div>
+        <p class="eyebrow">Claim Radar</p>
+        <h1 id="portal-title">Confidential Case Report</h1>
+        <p class="intro">Enter the access code printed in your letter. No username is required.</p>
+        <p class="intro de">Geben Sie den Zugangscode aus Ihrem Brief ein. Ein Benutzername ist nicht erforderlich.</p>
+        <form id="unlock-form" novalidate>
+          <label for="access-code">Access code / Zugangscode</label>
+          <div class="input-row">
+            <input id="access-code" name="access-code" type="password" autocomplete="current-password" inputmode="text" spellcheck="false" autocapitalize="none" required>
+            <button type="submit">Open report</button>
+          </div>
+        </form>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <p class="privacy">The code is processed in this browser and is never placed in the URL.</p>
+      </section>
+
+      <article id="report" class="report" aria-live="polite" hidden>
+        <div class="report-toolbar">
+          <p>Confidential supplementary material</p>
+          <button id="close-report" type="button" class="secondary">Close report</button>
+        </div>
+        <div id="report-content" class="report-content"></div>
+      </article>
+    </main>
+    <noscript>This encrypted report requires JavaScript for local decryption.</noscript>
+    <script type="module" src="assets/app.mjs"></script>
+  </body>
+</html>
