@@ -1,5 +1,5 @@
-import { decryptCaseEnvelope, deriveRecordId, normalizeAccessCode, recordPath } from "./crypto.mjs?v=access-code-2";
-import { renderMarkdownSafely } from "./markdown.mjs?v=access-code-2";
+import { decryptCaseEnvelope, deriveRecordId, normalizeAccessCode, recordPath } from "./crypto.mjs?v=access-code-3";
+import { renderMarkdownSafely } from "./markdown.mjs?v=access-code-3";
 
 const form = document.querySelector("#unlock-form");
 const input = document.querySelector("#access-code");

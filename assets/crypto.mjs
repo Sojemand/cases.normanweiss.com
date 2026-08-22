@@ -4,7 +4,8 @@ const KEY_PREFIX = "claim-radar-key-v1\0";
 const ENVELOPE_FORMAT = "claim-radar-case-envelope/v1";
 const PAYLOAD_FORMAT = "claim-radar-case-report/v1";
 const LEGACY_ACCESS_CODE = /^[A-Za-z0-9_-]{43}$/;
-const SHORT_ACCESS_CODE = /^[0-9A-HJKMNP-TV-Z]{20}$/;
+const CURRENT_ACCESS_CODE = /^[0-9A-HJKMNP-TV-Z]{16}$/;
+const PREVIOUS_ACCESS_CODE = /^[0-9A-HJKMNP-TV-Z]{20}$/;
 
 function bytesToHex(bytes) {
   return Array.from(bytes, (value) => value.toString(16).padStart(2, "0")).join("");
@@ -26,7 +27,7 @@ export function normalizeAccessCode(value) {
   const entered = String(value ?? "").trim();
   if (LEGACY_ACCESS_CODE.test(entered)) return entered;
   const compact = entered.replace(/[\s-]/g, "").toUpperCase();
-  if (SHORT_ACCESS_CODE.test(compact)) return compact;
+  if (CURRENT_ACCESS_CODE.test(compact) || PREVIOUS_ACCESS_CODE.test(compact)) return compact;
   throw new Error("invalid access code");
 }
 

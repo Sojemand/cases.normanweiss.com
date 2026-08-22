@@ -1,14 +1,17 @@
 import { deriveRecordId, normalizeAccessCode } from "../assets/crypto.mjs";
 
-const canonical = "ABCDEFGHJKMPQRSTVWXY";
-for (const entered of [canonical, "abcd-efgh-jkmp-qrst-vwxy", "ABCD EFGH JKMP QRST VWXY"]) {
+const canonical = "ABCDEFGHJKMPQRST";
+for (const entered of [canonical, "abcd-efgh-jkmp-qrst", "ABCD EFGH JKMP QRST"]) {
   if (normalizeAccessCode(entered) !== canonical) throw new Error("short access-code normalization failed");
 }
+
+const previous = "ABCDEFGHJKMPQRSTVWXY";
+if (normalizeAccessCode(previous) !== previous) throw new Error("previous 20-character code is no longer accepted");
 
 const legacy = "A".repeat(43);
 if (normalizeAccessCode(legacy) !== legacy) throw new Error("legacy access code is no longer accepted");
 
-for (const invalid of ["ABCI-EFGH-JKMP-QRST-VWXY", "ABCL-EFGH-JKMP-QRST-VWXY", "ABCO-EFGH-JKMP-QRST-VWXY", "ABCU-EFGH-JKMP-QRST-VWXY", "A".repeat(19)]) {
+for (const invalid of ["ABCI-EFGH-JKMP-QRST", "ABCL-EFGH-JKMP-QRST", "ABCO-EFGH-JKMP-QRST", "ABCU-EFGH-JKMP-QRST", "A".repeat(15), "A".repeat(17), "A".repeat(19)]) {
   try {
     normalizeAccessCode(invalid);
     throw new Error("ambiguous or malformed short code was accepted");
