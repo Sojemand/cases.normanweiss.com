@@ -1,6 +1,8 @@
 import { decryptCaseEnvelope, deriveRecordId, normalizeAccessCode, recordPath } from "./crypto.mjs?v=access-code-3";
 import { renderMarkdownSafely } from "./markdown.mjs?v=access-code-3";
 
+const COUNTER_OPEN_URL = "https://lost-fund-case-open-counter.wnblackadder.chatgpt.site/api/open";
+
 const form = document.querySelector("#unlock-form");
 const input = document.querySelector("#access-code");
 const status = document.querySelector("#status");
@@ -23,6 +25,19 @@ async function openReport(accessCode) {
   return decryptCaseEnvelope(envelope, code);
 }
 
+function recordFirstOpen(recordId) {
+  void fetch(COUNTER_OPEN_URL, {
+    method: "POST",
+    mode: "cors",
+    credentials: "omit",
+    cache: "no-store",
+    keepalive: true,
+    referrerPolicy: "no-referrer",
+    headers: { "Content-Type": "text/plain;charset=UTF-8" },
+    body: JSON.stringify({ recordId }),
+  }).catch(() => {});
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   status.className = "status busy";
@@ -32,6 +47,7 @@ form.addEventListener("submit", async (event) => {
   input.disabled = true;
   try {
     const opened = await openReport(input.value);
+    recordFirstOpen(opened.recordId);
     input.value = "";
     renderMarkdownSafely(opened.markdown, reportContent);
     unlock.hidden = true;
