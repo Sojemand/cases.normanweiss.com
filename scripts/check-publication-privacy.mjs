@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 
 export const PUBLICATION_COMMIT = "Published encrypted case report";
 export const PUBLICATION_BODY = "Publishes one encrypted case-report record. No plaintext, recipient identity, receipt, or access code is included.";
+export const PUBLICATION_SQUASH_MESSAGE = `${PUBLICATION_COMMIT}\n\n${PUBLICATION_BODY}`;
 const PUBLICATION_BRANCH = /^codex\/publish-case-[0-9a-f]{8,64}$/;
 
 function git(...args) {
@@ -22,7 +23,9 @@ export function validatePublicationMetadata({ files, title, body, headRef, messa
   if (body !== "" && body !== PUBLICATION_BODY) errors.push("publication PR body must be empty or the approved generic text");
   if (!PUBLICATION_BRANCH.test(headRef)) errors.push("publication branch must use an opaque record-derived suffix");
   for (const message of messages) {
-    if (message !== PUBLICATION_COMMIT) errors.push("publication commit message must be exactly the approved generic text");
+    if (message !== PUBLICATION_COMMIT && message !== PUBLICATION_SQUASH_MESSAGE) {
+      errors.push("publication commit message must use the approved generic subject and optional generic body");
+    }
   }
   return errors;
 }
